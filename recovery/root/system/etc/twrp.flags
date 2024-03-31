@@ -1,34 +1,28 @@
-/system             ext4      system                                flags=display=system;logical
-/vendor             ext4      vendor                                flags=display=vendor;logical
-/product            ext4      product                               flags=display=product;logical
-/odm                ext4      odm                                   flags=display=odm;logical
-/boot               emmc      /dev/block/by-name/boot               flags=display=boot
-/recovery           emmc      /dev/block/by-name/recovery           flags=display=recovery
-/metadata           ext4      /dev/block/by-name/metadata           flags=display=metadata
-/data               f2fs      /dev/block/by-name/userdata           flags=display=data
-/cache              ext4      /dev/block/by-name/cache              flags=display=cache
-#/sdcard             sdfat     /dev/block/mmcblk0p1                  flags=display=sdcard
-/efs                ext4      /dev/block/by-name/sec_efs            flags=display=efs
-/sec_efs            ext4      /dev/block/by-name/sec_efs            flags=display=sec_efs
-#/carrier            ext4      /dev/block/by-name/carrier            flags=display=carrier
-#/preload           ext4      /dev/block/by-name/hidden             flags=display=preload
-/modem              emmc      /dev/block/by-name/radio              flags=display=modem
-/misc               emmc      /dev/block/by-name/misc               flags=display=misc
-#/keydata            ext4      /dev/block/by-name/keydata            flags=display=keydata
-#/keyrefuge          f2fs      /dev/block/by-name/keyrefuge          flags=display=keyrefuge
-/dtbo               emmc      /dev/block/by-name/dtbo               flags=display=dtbo
-/prism              ext4      /dev/block/by-name/prism              flags=display=prism
-/optics             ext4      /dev/block/by-name/optics             flags=display=optics
-#/vbmeta_system      emmc      /dev/block/by-name/vbmeta_system      flags=display=vbmeta_system
-#/vendor_boot        emmc      /dev/block/by-name/vendor_boot        flags=display=vendor_boot
-#/vbmeta_samsung     emmc      /dev/block/by-name/vbmeta_samsung     flags=display=vbmeta_samsung
-#/system_ext         ext4      system_ext                            flags=display=system_ext;logical
-#/vendor_dlkm        ext4      vendor_dlkm                           flags=display=vendor_dlkm;logical
-#/system_dlkm        ext4      system_dlkm                           flags=display=system_dlkm;logical
-/init_boot          emmc      /dev/block/by-name/init_boot          flags=display=init_boot
-
-
-
-# Samsung ODE
-#/dev/block/by-name/keydata		/keydata	ext4	defaults		recoveryonly
-#/dev/block/by-name/keyrefuge		/keyrefuge	f2fs	defaults		recoveryonly
+#<mnt_point>   		    <type>   <src>                                   <mnt_flags and options>
+/product_image  			emmc	  /dev/block/mapper/product  			 flags=flashimg;display="Product Image"
+/system_image 			  emmc	  /dev/block/mapper/system  			  flags=flashimg;display="System Image"
+/vendor_image   			emmc	  /dev/block/mapper/vendor 			   flags=flashimg;display="Vendor Image"
+/odm_image  			    emmc	  /dev/block/mapper/odm 				  flags=flashimg;display="Odm Image"
+/product  			      ext4	  /dev/block/mapper/product  			 flags=backup=1;display="Product Image";wipeingui
+/system_root 			    ext4	  /dev/block/mapper/system  			  flags=backup=1;display="System Image";wipeingui
+/vendor   		      	ext4	  /dev/block/mapper/vendor 			   flags=backup=1;display="Vendor Image";wipeingui
+/odm  		      	    ext4  	/dev/block/mapper/odm 				  flags=backup=1;display="Odm Image";wipeingui
+/boot       			    emmc    /dev/block/by-name/boot                 flags=display="Boot";backup=1;flashimg=1;
+/recovery   			    emmc    /dev/block/by-name/recovery             flags=display="Recovery";backup=1;flashimg=1;
+/metadata   			    ext4    /dev/block/by-name/metadata             flags=display="Metadata";wipeingui;wipeduringfactoryreset
+/data     			      f2fs    /dev/block/by-name/userdata			 flags=length=-20480;fileencryption=aes-256-xts:aes-256-cts:v2,keydirectory=/metadata/vold/metadata_encryption
+/cache    			      ext4    /dev/block/by-name/cache                flags=display="Cache";wipeingui;wipeduringfactoryreset
+/efs      		 	      ext4    /dev/block/by-name/efs                  flags=backup=1;display="Efs";wipeingui;flashimg
+/sec_efs   			      ext4    /dev/block/by-name/sec_efs              flags=backup=1;display="Sec Efs";wipeingui;flashimg
+/modem     			      emmc    /dev/block/by-name/radio                flags=backup=1;display="Modem";
+/wifi						f2fs    /data/misc/apexdata/com.android.wifi    flags=display="Wifi Data";backup=1
+/misc      			      emmc    /dev/block/by-name/misc
+/dtbo       			    emmc    /dev/block/by-name/dtbo                 flags=display="DTBO Image";flashimg=1;backup=1;
+/prism       			    ext4    /dev/block/by-name/prism                flags=display="Prism";backup=0;
+/prism_image 		 	   emmc    /dev/block/by-name/prism                flags=display="Prism Image";backup=1;flashimg=1;
+/optics        	 		 ext4    /dev/block/by-name/optics               flags=display="Optics";backup=0;
+/optics_image  		 	 emmc    /dev/block/by-name/optics               flags=display="Optics Image";backup=1;flashimg=1;
+/up_param     			  emmc    /dev/block/by-name/up_param             flags=display="Param";backup=1;flashimg=1;
+/sdcard					 auto	/data/media/							flags=display="Internal Storage";wipeingui
+/external_sd				auto	/dev/block/mmcblk1p1 /dev/block/mmcblk1 flags=display="Micro SD Card";storage;wipeingui;removable
+/usb_otg					auto	/dev/block/sda1 /dev/block/sda		  flags=display="USB OTG";storage;wipeingui;removable

@@ -1,8 +1,4 @@
 #!/system/bin/sh
-#
-# A simple Samsung services disabler by Ian Macdonald.
-#
-# Use this to prime your device after installing TWRP.
 
 md5() {
   md5sum -b "$1"
@@ -25,7 +21,7 @@ resize_vendor() {
 
   echo " - Unmounting /vendor..."
   umount /vendor
-  echo " - Checking vendor block partition before resizing..."
+  echo " - Checking vendor block parition before resizing..."
   e2fsck -f $dm_block
   echo " - Resizing the filesystem on $dm_block..."
   resize2fs $dm_block
@@ -42,7 +38,7 @@ vendor_free_size_check() {
     echo " -     ...succeeded."
     rm -f /vendor/test
   else
-    echo " -     ...No free space left on vendor, attempting to resize vendor..."
+    echo " -     ...No free space left on vendor, attempt to resizing vendor..."
     echo " "
     rm -f /vendor/test
     resize_vendor
@@ -52,13 +48,8 @@ vendor_free_size_check() {
 disable_fbe() {
   local md5
   local i
-  fstab_files=`grep -lr 'fileencryption' vendor/etc`
-
-  #
-  # Exynos devices = fstab.exynos*.
-  # MediaTek devices = fstab.mt*.
-  # Snapdragon devices = fstab.qcom, fstab.emmc, fstab.default
-  #
+  fstab_files=`grep -lr 'fileencryption' /vendor/etc`
+  
   for i in $fstab_files; do
     if [ -f $i ]; then
       echo " - Disabling file-based encryption (FBE) for /data..."
@@ -74,13 +65,8 @@ disable_fbe() {
 disable_fde() {
   local md5
   local i
-  fstab_files=`grep -lr 'forceencrypt' vendor/etc`
-
-  #
-  # Exynos devices = fstab.exynos*.
-  # MediaTek devices = fstab.mt*.
-  # Snapdragon devices = fstab.qcom, fstab.emmc, fstab.default
-  #
+  fstab_files=`grep -lr 'forceencrypt' /vendor/etc`
+  
   for i in $fstab_files; do
     if [ -f $i ]; then
       echo " - Disabling full-disk encryption (FDE) for /data..."

@@ -1,0 +1,16 @@
+ RW-SYS 
+ A Tool to Read-write System Images!
+
+Please Enter Selection:
+
+1 - RW the system image from storage
+2 - RW the system image from system partition by generating the modded image
+
+also you have to reflash the generated images manually
+
+You can also do:
+
+# rw-sys --file /sdcard/ProjectROM-1.img - Automatically assume you want to rw a certain image from storage
+
+# rw-sys --system  -  Automatically tries to grab /system mappers then set to rw
+

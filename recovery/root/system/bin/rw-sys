@@ -6,6 +6,7 @@ rw_sysimg() {
     e2fsck -E unshare_blocks "/data/rw-sys/system.img"
     resize2fs -M "/data/rw-sys/system.img"
     echo "Done"
+    exit
 }
 
 rw_sys_location() {

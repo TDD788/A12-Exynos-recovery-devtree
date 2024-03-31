@@ -61,6 +61,8 @@ front_page() {
     esac
 }
 
+rw_sys_location
+
 case "$1" in 
     "--file")
         if [ -z "$3" ]; then
@@ -80,5 +82,5 @@ case "$1" in
         ;;
 esac
 
-rw_sys_location
+front_page
 
